@@ -29,17 +29,17 @@ func InitBlockchain() {
 
 // NewBlock creates a new Blockchain Block.
 func NewBlock(oldBlock Block, data string) Block {
-	block := Block{data, time.Now().Unix(), []byte{}, []byte{}}
-	block.PrevHash = oldBlock.Hash
-	block.Hash = block.calculateHash()
-	return block
+	newBlock := Block{data, time.Now().Unix(), []byte{}, []byte{}}
+	newBlock.PrevHash = oldBlock.Hash
+	newBlock.Hash = newBlock.calculateHash()
+	return newBlock
 }
 
 // AddBlock adds a new block to the Blockchain.
 func AddBlock(b Block) error {
 	lastBlock := Blockchain[len(Blockchain)-1]
 	if !reflect.DeepEqual(lastBlock.Hash, b.PrevHash) {
-		return errors.New("Invalid block")
+		return errors.New("Invalid block !")
 	}
 	Blockchain = append(Blockchain, b)
 	return nil
